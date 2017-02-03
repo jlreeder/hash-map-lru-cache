@@ -65,7 +65,7 @@ class ResizingIntSet
   end
 
   def insert(num)
-    self.resize! if @count == @num_buckets
+    resize! if @count == @num_buckets
     self[num] << num
     @count += 1
   end
@@ -79,9 +79,7 @@ class ResizingIntSet
     self[num].include?(num)
   end
 
-  # TODO: This does not work when we leave #resize! private. Why not?
-  # private
-  protected
+  private
 
   def [](num)
     @store[num % @num_buckets]
