@@ -24,6 +24,11 @@ class Hash
   # This returns 0 because rspec will break if it returns nil
   # Make sure to implement an actual Hash#hash method
   def hash
-    0
+    answer = 0.hash
+    keys.each do |key|
+      el = key.to_s.hash
+      answer ^= el
+    end
+    answer
   end
 end
