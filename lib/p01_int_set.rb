@@ -87,11 +87,8 @@ class ResizingIntSet
 
   def resize!
     a = ResizingIntSet.new(@num_buckets * 2)
-    i = 0
     @store.each do |arr|
-      until arr.empty?
-        a.insert(arr.pop)
-      end
+      a.insert(arr.pop) until arr.empty?
     end
     @store = a.store
     @num_buckets *= 2
