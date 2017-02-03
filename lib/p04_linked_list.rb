@@ -78,10 +78,18 @@ class LinkedList
   def remove(key)
     return unless include?(key)
     tmp = @curr_link
-    @head = nil if tmp == @head
-    @tail = nil if tmp == @tail
+
+    if tmp == @head && @head != @tail
+      @head = tmp.next
+    elsif tmp == @tail && @head != @tail
+      @tail = tmp.prev
+    elsif @head==@tail
+      @head = Link.new
+    end
+
     tmp.prev.next = tmp.next if tmp.prev && tmp.next
     tmp.next.prev = tmp.prev if tmp.prev && tmp.next
+
   end
 
   def each
