@@ -79,17 +79,21 @@ class LinkedList
     return unless include?(key)
     tmp = @curr_link
 
-    if tmp == @head && @head != @tail
-      @head = tmp.next
-    elsif tmp == @tail && @head != @tail
-      @tail = tmp.prev
-    elsif @head==@tail
+    if @head != @tail
+      @head = tmp.next if tmp == @head
+      @tail = tmp.prev if tmp == @tail
+    else
       @head = Link.new
     end
 
-    tmp.prev.next = tmp.next if tmp.prev && tmp.next
-    tmp.next.prev = tmp.prev if tmp.prev && tmp.next
-
+    if tmp.prev && tmp.next
+      tmp.prev.next = tmp.next
+      tmp.next.prev = tmp.prev
+    elsif tmp.prev
+      tmp.prev.next = nil
+    elsif tmp.next
+      tmp.next.prev = nil
+    end
   end
 
   def each
