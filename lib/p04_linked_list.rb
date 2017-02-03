@@ -20,6 +20,8 @@ end
 
 class LinkedList
   def initialize
+    @tail = Link.new
+    @head = @tail
   end
 
   def [](i)
@@ -28,12 +30,15 @@ class LinkedList
   end
 
   def first
+    @head
   end
 
   def last
+    @tail
   end
 
   def empty?
+    @head.key.nil?
   end
 
   def get(key)
@@ -43,6 +48,16 @@ class LinkedList
   end
 
   def append(key, val)
+    if empty?
+      @tail.key = key
+      @tail.val = val
+    else
+      new_item = Link.new(key, val)
+      @tail.next = new_item
+      new_item.prev = @tail
+      @tail = new_item
+    end
+
   end
 
   def update(key, val)
