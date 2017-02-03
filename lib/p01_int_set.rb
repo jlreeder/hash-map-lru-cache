@@ -79,6 +79,7 @@ class ResizingIntSet
     self[num].include?(num)
   end
 
+  # TODO: This does not work when we leave #resize! private. Why not?
   # private
   protected
 
@@ -88,7 +89,6 @@ class ResizingIntSet
 
   def resize!
     a = ResizingIntSet.new(@num_buckets * 2)
-    # @store.concat(a.store)
     i = 0
     @store.each do |arr|
       until arr.empty?
