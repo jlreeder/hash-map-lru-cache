@@ -88,14 +88,9 @@ class LinkedList
       @head = Link.new
     end
 
-    if tmp.prev && tmp.next
-      tmp.prev.next = tmp.next
-      tmp.next.prev = tmp.prev
-    elsif tmp.prev
-      tmp.prev.next = nil
-    elsif tmp.next
-      tmp.next.prev = nil
-    end
+    tmp.prev.next = tmp.next if tmp.prev
+    tmp.next.prev = tmp.prev if tmp.next
+
   end
 
   def each
@@ -108,7 +103,7 @@ class LinkedList
   end
 
   # uncomment when you have `each` working and `Enumerable` included
-  # def to_s
-  #   inject([]) { |acc, link| acc << "[#{link.key}, #{link.val}]" }.join(", ")
-  # end
+  def to_s
+    inject([]) { |acc, link| acc << "[#{link.key}, #{link.val}]" }.join(", ")
+  end
 end
