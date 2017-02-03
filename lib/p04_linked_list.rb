@@ -19,6 +19,7 @@ class Link
 end
 
 class LinkedList
+  attr_accessor :curr_link
   def initialize
     @tail = Link.new
     @head = @tail
@@ -42,9 +43,19 @@ class LinkedList
   end
 
   def get(key)
+    return @curr_link.val if include?(key)
   end
 
   def include?(key)
+    tmp = @head
+    while tmp
+      if tmp.key == key
+        @curr_link = tmp
+        return true
+      end
+      tmp = tmp.next
+    end
+    false
   end
 
   def append(key, val)
@@ -61,9 +72,16 @@ class LinkedList
   end
 
   def update(key, val)
+    @curr_link.val = val if include?(key)
   end
 
   def remove(key)
+    return unless include?(key)
+    tmp = @curr_link
+    @head = nil if tmp == @head
+    @tail = nil if tmp == @tail
+    tmp.prev.next = tmp.next if tmp.prev && tmp.next
+    tmp.next.prev = tmp.prev if tmp.prev && tmp.next
   end
 
   def each
