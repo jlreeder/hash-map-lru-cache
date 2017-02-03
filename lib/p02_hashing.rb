@@ -4,11 +4,19 @@ end
 
 class Array
   def hash
+    answer = 0.hash
+    each_with_index do |el, i|
+      el1 = (el.is_a?(String) ? el.ord % 13 : el)
+      answer += el1.hash if i.odd?
+      answer -= el1.hash if i.even?
+    end
+    answer
   end
 end
 
 class String
   def hash
+    self.chars.hash
   end
 end
 
