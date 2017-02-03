@@ -19,6 +19,8 @@ class Link
 end
 
 class LinkedList
+  include Enumerable
+
   attr_accessor :curr_link
   def initialize
     @tail = Link.new
@@ -97,6 +99,12 @@ class LinkedList
   end
 
   def each
+    tmp = @head
+    while tmp
+      yield(tmp)
+      tmp = tmp.next
+    end
+    self
   end
 
   # uncomment when you have `each` working and `Enumerable` included
