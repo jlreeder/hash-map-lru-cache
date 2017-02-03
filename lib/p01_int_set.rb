@@ -66,8 +66,8 @@ class ResizingIntSet
 
   def insert(num)
     resize! if @count == @num_buckets
-    self[num] << num
-    @count += 1
+    self[num] << num unless self.include?(num)
+    @count += 1 unless self.include?(num)
   end
 
   def remove(num)
