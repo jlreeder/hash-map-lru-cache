@@ -1,3 +1,5 @@
+require 'byebug'
+
 class MaxIntSet
   def initialize(max)
     @max = max
@@ -54,32 +56,50 @@ class IntSet
 end
 
 class ResizingIntSet
-  attr_reader :count
+  attr_accessor :count, :num_buckets, :store
 
   def initialize(num_buckets = 20)
     @store = Array.new(num_buckets) { Array.new }
+    @num_buckets = num_buckets
     @count = 0
   end
 
   def insert(num)
+    self.resize! if @count == @num_buckets
+    self[num] << num
+    @count += 1
   end
 
   def remove(num)
+    self[num].delete(num) if self.include?(num)
+    @count -= 1
   end
 
   def include?(num)
+    self[num].include?(num)
   end
 
-  private
+  # private
+  protected
 
   def [](num)
-    # optional but useful; return the bucket corresponding to `num`
-  end
-
-  def num_buckets
-    @store.length
+    @store[num % @num_buckets]
   end
 
   def resize!
+    a = ResizingIntSet.new(@num_buckets * 2)
+    # @store.concat(a.store)
+    i = 0
+    @store.each do |arr|
+      until arr.empty?
+        a.insert(arr.pop)
+      end
+    end
+    @store = a.store
+    @num_buckets *= 2
+  end
+
+  def help_count(num)
+    num % @num_buckets
   end
 end
