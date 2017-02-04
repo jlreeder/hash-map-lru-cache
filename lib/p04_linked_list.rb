@@ -93,10 +93,10 @@ class LinkedList
 
   end
 
-  def each(&prc)
+  def each
     tmp = @head
     while tmp
-      prc.call(tmp)
+      yield(tmp)
       tmp = tmp.next
     end
     self

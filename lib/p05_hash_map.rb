@@ -12,26 +12,26 @@ class HashMap
 
   def include?(key)
     hashed_key = key.hash
-    @store[hashed_key % num_buckets].include?(hashed_key)
+    @store[hashed_key % num_buckets].include?(key)
   end
 
   def set(key, val)
     hashed_key = key.hash
     if include?(key)
-      @store[hashed_key % num_buckets].update(hashed_key, val)
+      @store[hashed_key % num_buckets].update(key, val)
     else
-      @store[hashed_key % num_buckets].append(hashed_key, val)
+      @store[hashed_key % num_buckets].append(key, val)
     end
   end
 
   def get(key)
     hashed_key = key.hash
-    @store[hashed_key % num_buckets].get(hashed_key)
+    @store[hashed_key % num_buckets].get(key)
   end
 
   def delete(key)
     hashed_key = key.hash
-    @store[hashed_key % num_buckets].remove(hashed_key)
+    @store[hashed_key % num_buckets].remove(key)
   end
 
   def each
