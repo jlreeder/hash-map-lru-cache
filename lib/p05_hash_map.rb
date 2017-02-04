@@ -34,14 +34,11 @@ class HashMap
     @store[hashed_key % num_buckets].remove(hashed_key)
   end
 
-  def each(&prc)
+  def each
     @store.each do |linked_list|
       next if linked_list.empty?
       linked_list.each do |link|
-        p link.key
-        p '____'
-        p link.val
-        prc.call(link.key, link.val)
+        yield(link.key, link.val)
       end
     end
     @store
