@@ -34,7 +34,17 @@ class HashMap
     @store[hashed_key % num_buckets].remove(hashed_key)
   end
 
-  def each
+  def each(&prc)
+    @store.each do |linked_list|
+      next if linked_list.empty?
+      linked_list.each do |link|
+        p link.key
+        p '____'
+        p link.val
+        prc.call(link.key, link.val)
+      end
+    end
+    @store
   end
 
   # uncomment when you have Enumerable included
